@@ -1,0 +1,20 @@
+{% extends "main/base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+    <h2>{{ page_title }}</h2>
+
+    <div class="card" style="border-color: rgba(255,79,109,0.35);">
+        <p>Are you sure you want to delete: <strong>{{ object }}</strong>?</p>
+
+        <div class="actions">
+            <form method="post" style="margin:0;">
+                {% csrf_token %}
+                <button class="btn danger" type="submit">Yes, Delete</button>
+            </form>
+            <a class="btn" href="{% url 'home' %}">Cancel</a>
+        </div>
+    </div>
+{% endblock %}
+

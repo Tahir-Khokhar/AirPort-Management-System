@@ -1,0 +1,26 @@
+{% extends "main/base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+    <h2>{{ page_title }}</h2>
+
+    <div class="actions">
+        <a class="btn primary" href="{% url create_url_name %}">Create New</a>
+    </div>
+
+    <ul class="list" style="margin-top:14px;">
+        {% for item in items %}
+            <li class="list-item">
+                <div class="title">{{ item }}</div>
+                <div class="actions" style="margin-top:10px;">
+                    <a class="btn" href="{% url update_url_name item.pk %}">Edit</a>
+                    <a class="btn danger" href="{% url delete_url_name item.pk %}">Delete</a>
+                </div>
+            </li>
+        {% empty %}
+            <li class="list-item">No records found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

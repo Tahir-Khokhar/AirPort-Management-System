@@ -1,0 +1,38 @@
+{% extends "main/base.html" %}
+
+{% block title %}Flight List{% endblock %}
+
+{% block content %}
+    <h2>Flight List</h2>
+
+    <ul class="list">
+        {% for flight in flights %}
+            <li class="list-item">
+                <div class="title">
+                    <a href="{% url 'flight-detail' flight.pk %}">{{ flight.flight_number }}</a>
+                    <span class="small">({{ flight.departure_airport.code }} → {{ flight.arrival_airport.code }})</span>
+                </div>
+
+                <div class="small">
+                    Departure: {{ flight.departure_time }}<br>
+                    Arrival: {{ flight.arrival_time }}
+                </div>
+
+                <div style="margin-top:10px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                    {% if flight.is_full %}
+                        <span class="badge full">Full</span>
+                    {% else %}
+                        <span class="badge ok">{{ flight.remaining_seats }} seats left</span>
+                    {% endif %}
+
+                    {% if not flight.is_full %}
+                        <a class="btn primary" href="{% url 'booking-create' flight.pk %}">Book Seat</a>
+                    {% endif %}
+                </div>
+            </li>
+        {% empty %}
+            <li class="list-item">No flights found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

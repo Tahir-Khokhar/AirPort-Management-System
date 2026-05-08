@@ -1,0 +1,16 @@
+{% extends "main/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h2>Welcome</h2>
+    <p>This project helps manage airplanes, airports, flights, passengers, and bookings.</p>
+
+    <h3>Quick Links</h3>
+    <ul>
+        <li><a href="{% url 'flight-list' %}">View Flights</a></li>
+        <li><a href="{% url 'booking-manage-list' %}">Manage Bookings</a></li>
+        <li><a href="{% url 'passenger-list' %}">Manage Passengers</a></li>
+        <li><a href="/admin/">Go to Django Admin</a></li>
+    </ul>
+{% endblock %}

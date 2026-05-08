@@ -1,0 +1,43 @@
+{% extends "main/base.html" %}
+
+{% block title %}Booking Form{% endblock %}
+
+{% block content %}
+    <h2>Booking Form</h2>
+
+    <div class="card" style="margin-bottom:16px;">
+        <div class="grid">
+            <div class="kv">
+                <div class="label">Flight</div>
+                <div class="value">{{ flight.flight_number }}</div>
+            </div>
+            <div class="kv">
+                <div class="label">Route</div>
+                <div class="value">{{ flight.departure_airport.code }} → {{ flight.arrival_airport.code }}</div>
+            </div>
+            <div class="kv">
+                <div class="label">Departure</div>
+                <div class="value">{{ flight.departure_time }}</div>
+            </div>
+            <div class="kv">
+                <div class="label">Arrival</div>
+                <div class="value">{{ flight.arrival_time }}</div>
+            </div>
+            <div class="kv" style="grid-column: 1 / -1;">
+                <div class="label">Remaining Seats</div>
+                <div class="value">{{ flight.remaining_seats }}</div>
+            </div>
+        </div>
+    </div>
+
+    <p class="small">If the passenger is not listed yet, create one in the Passengers page first.</p>
+
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn primary" type="submit">Confirm Booking</button>
+        </form>
+    </div>
+{% endblock %}
+

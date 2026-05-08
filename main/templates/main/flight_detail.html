@@ -1,0 +1,69 @@
+{% extends "main/base.html" %}
+
+{% block title %}Flight Detail{% endblock %}
+
+{% block content %}
+    <h2>Flight Detail</h2>
+
+    <div class="card">
+        <div class="grid">
+            <div class="kv">
+                <div class="label">Flight Number</div>
+                <div class="value">{{ flight.flight_number }}</div>
+            </div>
+            <div class="kv">
+                <div class="label">Route</div>
+                <div class="value">{{ flight.departure_airport.code }} → {{ flight.arrival_airport.code }}</div>
+            </div>
+            <div class="kv">
+                <div class="label">Airplane</div>
+                <div class="value">{{ flight.airplane.name }} ({{ flight.airplane.model }})</div>
+            </div>
+            <div class="kv">
+                <div class="label">Capacity</div>
+                <div class="value">{{ flight.airplane.capacity }}</div>
+            </div>
+            <div class="kv">
+                <div class="label">Departure</div>
+                <div class="value">{{ flight.departure_time }} ({{ flight.departure_airport.code }})</div>
+            </div>
+            <div class="kv">
+                <div class="label">Arrival</div>
+                <div class="value">{{ flight.arrival_time }} ({{ flight.arrival_airport.code }})</div>
+            </div>
+            <div class="kv">
+                <div class="label">Booked Seats</div>
+                <div class="value">{{ flight.booked_seats }}</div>
+            </div>
+            <div class="kv">
+                <div class="label">Remaining Seats</div>
+                <div class="value">{{ flight.remaining_seats }}</div>
+            </div>
+        </div>
+
+        <div class="actions">
+            {% if flight.is_full %}
+                <span class="badge full">This flight is full</span>
+            {% else %}
+                <a class="btn primary" href="{% url 'booking-create' flight.pk %}">Create Booking</a>
+                <span class="badge ok">{{ flight.remaining_seats }} seats left</span>
+            {% endif %}
+            <a class="btn" href="{% url 'flight-list' %}">Back to Flights</a>
+        </div>
+    </div>
+
+    <h3 style="margin-top:18px;">Current Bookings</h3>
+
+    <ul class="list">
+        {% for booking in flight.bookings.all %}
+            <li class="list-item">
+                <div class="title">{{ booking.passenger.name }}</div>
+                <div class="small">Seat: {{ booking.seat_number }}</div>
+                <div class="small">Booked: {{ booking.booking_date }}</div>
+            </li>
+        {% empty %}
+            <li class="list-item">No bookings yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
