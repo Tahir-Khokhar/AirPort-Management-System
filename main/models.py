@@ -78,14 +78,12 @@ class Flight(models.Model):
     def __str__(self):
         return f"{self.flight_number}: {self.departure_airport.code} → {self.arrival_airport.code}"
 
-
 class Passenger(models.Model):
     name = models.CharField(max_length=120)
     email = models.EmailField(unique=True)
 
     def __str__(self):
         return f"{self.name} ({self.email})"
-
 
 class Booking(models.Model):
     passenger = models.ForeignKey(
