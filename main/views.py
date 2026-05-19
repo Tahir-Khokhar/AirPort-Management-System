@@ -318,3 +318,4 @@ class BookingManageDeleteView(BaseModelDeleteView):
     model = Booking
     page_title = "Delete Booking"
     success_url_name = "booking-manage-list"
+    
